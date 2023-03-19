@@ -5,12 +5,27 @@ on:
     branches:
       - hub
 
+
 jobs:
-  publish:
+  # Single deploy job since we're just deploying
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Check out
-        uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          # Upload entire repository
+          path: 'public'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
 
       - name: Install Emacs
         uses: purcell/setup-emacs@master
@@ -21,8 +36,3 @@ jobs:
         run: |
           emacs --batch -l ./publish.el
 
-      - name: Publish generated content to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@4.1.4
-        with:
-          branch: gh-pages
-          folder: public
