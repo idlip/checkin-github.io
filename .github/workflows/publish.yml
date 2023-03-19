@@ -13,10 +13,13 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Install Emacs
-        run: sudo apt install emacs-nox --yes
+        uses: purcell/setup-emacs@master
+        with:
+          version: 27.2
 
       - name: Build the site
-        run: ./build.sh
+        run: |
+          emacs --batch -l ./publish.el
 
       - name: Publish generated content to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
