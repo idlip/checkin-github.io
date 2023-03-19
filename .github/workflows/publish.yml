@@ -12,14 +12,20 @@ jobs:
       - name: Check out
         uses: actions/checkout@v1
 
+      - name: Check out the style repo
+        run: git clone --depth 1 https://git.sr.ht/~daviwil/daviwil.com daviwil.com
+
       - name: Install Emacs
-        run: sudo apt install emacs-nox --yes
+        uses: purcell/setup-emacs@master
+        with:
+          version: 27.2
 
       - name: Build the site
-        run: ./build.sh
-
+        run: |
+          cp -R daviwil.com/public .
+          ./local-build.sh
       - name: Publish generated content to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
-          branch: hub
+          branch: gh-pages
           folder: public
