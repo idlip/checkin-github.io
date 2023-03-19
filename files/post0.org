@@ -9,6 +9,8 @@ Org mode is for keeping notes, maintaining TODO lists, planning
 projects, and authoring documents with a fast and effective plain-text
 system.
 
+Atleast build it via ci
+
 Created by Carsten Dominik in 2003, maintained by Bastien Guerry and
 developed by many others.
 #+END_QUOTE

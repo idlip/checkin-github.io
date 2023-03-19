@@ -1,4 +1,3 @@
-image: iquiw/alpine-emacs
 
 .build: &build
   script:
